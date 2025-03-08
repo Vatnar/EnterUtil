@@ -1,19 +1,14 @@
-﻿#NoEnv  ; Recommended for performance and compatibility.
+﻿#NoEnv  
 #SingleInstance Force
-SendMode Input  ; Recommended for speed.
+SendMode Input  
 
-; Read exclusion list from config
 global ExcludedApps := []  ; array to hold app names
 configFile := A_ScriptDir "\config.ini"
 
-; Read the "Apps" key from section "Exclusions" of the config file.  
-; If the key is not found, appList remains blank.
 IniRead, appList, %configFile%, Exclusions, Apps, 
 if (appList != "")
 {
-    ; Split the comma-separated list into an array.
     ExcludedApps := StrSplit(appList, ",")
-    ; Trim any extra whitespace.
     for index, app in ExcludedApps
         ExcludedApps[index] := Trim(app)
 }
@@ -29,7 +24,6 @@ IsExcluded() {
     return false
 }
 
-; Custom hotkeys are active only when the active window does NOT match an exclusion.
 #If !IsExcluded()
 
 ; SHIFT+ENTER: insert a new line BELOW current line.
